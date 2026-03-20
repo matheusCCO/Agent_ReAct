@@ -124,7 +124,7 @@ def qa_agent(endpoint, base_url, logs):
 
     for step in range(6):
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.5-flash",
             contents=context
         )
 
@@ -165,7 +165,7 @@ def analyze_logs(log_text):
     """
 
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-flash",
         contents=prompt
     )
 
