@@ -6,7 +6,7 @@ from api_tools import tools
 class QAAgent:
     def __init__(self, api_key):
         self.client = genai.Client(api_key=api_key)
-        self.model_id = "gemini-1.5-flash"
+        self.model_id = "gemini-2.5-flash"
         
         self.system_instruction = """
         Você é um QA Engineer Sênior. Use a ferramenta 'call_api' para testar endpoints.

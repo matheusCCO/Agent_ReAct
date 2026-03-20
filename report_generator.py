@@ -4,7 +4,9 @@ from datetime import datetime
 class QAReport(FPDF):
     def header(self):
         self.set_font("Arial", "B", 12)
-        self.cell(0, 10, "Relatório de Testes de API - AI QA Agent", border=True, ln=True, align="C")
+        # Trocado ln=True por new_x e new_y
+        self.cell(0, 10, "Relatório de Testes de API - AI QA Agent", 
+                  border=1, new_x="LMARGIN", new_y="NEXT", align="C")
         self.ln(5)
 
     def footer(self):
@@ -18,28 +20,31 @@ def generate_pdf(endpoint, base_url, final_answer, history):
     
     # Resumo Técnico
     pdf.set_font("Arial", "B", 14)
-    pdf.cell(0, 10, "1. Resumo da Execução", ln=True)
+    pdf.cell(0, 10, "1. Resumo da Execução", new_x="LMARGIN", new_y="NEXT")
+    
     pdf.set_font("Arial", "", 11)
-    pdf.cell(0, 7, f"Endpoint Alvo: {endpoint}", ln=True)
-    pdf.cell(0, 7, f"URL Base: {base_url}", ln=True)
+    pdf.cell(0, 7, f"Endpoint Alvo: {endpoint}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 7, f"URL Base: {base_url}", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(5)
 
     # Veredito Final
     pdf.set_font("Arial", "B", 14)
     pdf.set_fill_color(230, 230, 230)
-    pdf.cell(0, 10, "2. Resultado Final (IA)", ln=True, fill=True)
+    pdf.cell(0, 10, "2. Resultado Final (IA)", fill=True, new_x="LMARGIN", new_y="NEXT")
+    
     pdf.set_font("Arial", "", 10)
     pdf.multi_cell(0, 7, final_answer)
     pdf.ln(5)
 
-    # Logs de Raciocínio (Histórico)
+    # Logs de Raciocínio
     pdf.set_font("Arial", "B", 14)
-    pdf.cell(0, 10, "3. Log de Raciocínio do Agente", ln=True)
+    pdf.cell(0, 10, "3. Log de Raciocínio do Agente", new_x="LMARGIN", new_y="NEXT")
+    
     pdf.set_font("Courier", "", 8)
     for entry in history:
-        # Sanitização simples para evitar caracteres que o FPDF não suporte no modo padrão
         clean_text = entry.encode('latin-1', 'replace').decode('latin-1')
         pdf.multi_cell(0, 5, clean_text)
         pdf.ln(2)
-
-    return pdf.output(dest='S') # Retorna como string de bytes para o Streamlit
+    
+    pdf_output = pdf.output()
+    return bytes(pdf_output)
