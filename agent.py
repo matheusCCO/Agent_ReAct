@@ -13,7 +13,7 @@ load_dotenv()
 client = genai.Client(
     api_key=os.getenv("GEMINI_API_KEY")
 )
-
+MODEL = os.getenv("MODEL_LLM")
 # ============================================
 # 🌐 TOOL: CHAMAR API REAL
 # ============================================
@@ -66,6 +66,7 @@ Seu objetivo é:
 4. Analisar logs fornecidos
 5. Identificar padrões de erro
 6. Sugerir causa raiz
+7. Executar testes de perfo na API
 
 Formato obrigatório:
 
@@ -122,9 +123,9 @@ def qa_agent(endpoint, base_url, logs):
     context = PROMPT.format(endpoint=endpoint, logs=logs)
     history = []
 
-    for step in range(6):
+    for step in range(2):
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model=f"{MODEL}",
             contents=context
         )
 
@@ -153,6 +154,7 @@ def qa_agent(endpoint, base_url, logs):
 # ============================================
 
 def analyze_logs(log_text):
+
     prompt = f"""
     Analise os logs abaixo e identifique:
 
@@ -165,7 +167,7 @@ def analyze_logs(log_text):
     """
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model=f"{MODEL}",
         contents=prompt
     )
 

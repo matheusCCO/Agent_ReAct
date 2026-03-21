@@ -2,12 +2,14 @@ import os
 from google import genai
 from google.genai import types
 from api_tools import tools
-
+from dotenv import load_dotenv
+load_dotenv()
+MODEL = os.getenv("MODEL_LLM")
 class QAAgent:
     def __init__(self, api_key):
         self.client = genai.Client(api_key=api_key)
-        self.model_id = "gemini-2.5-flash"
-        
+        self.model_id = f"{MODEL}"
+
         self.system_instruction = """
         Você é um QA Engineer Sênior. Use a ferramenta 'call_api' para testar endpoints.
         Analise os logs fornecidos para guiar seus testes exploratórios.
