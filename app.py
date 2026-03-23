@@ -15,17 +15,17 @@ if "agent" not in st.session_state:
 st.title("🧪 AI QA Agent - Modular & Function Calling")
 
 base_url = st.sidebar.text_input("🌐 Base URL", "http://localhost:8080")
-logs_input = st.sidebar.text_area("📄 Logs do Servidor", "ERROR 500 em /users")
+logs_input = st.sidebar.text_area("📄 Logs do Servidor", "ERROR 500 em /api/users")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("🚀 Testes Exploratórios")
-    target = st.text_input("Endpoint alvo", "GET /users")
+    target = st.text_input("Endpoint alvo", "GET /api/users")
     
     if st.button("Iniciar Agente"):
         with st.spinner("O agente está testando..."):
-            history, final = st.session_state.agent.run_test(target, base_url, logs_input)
+            history, final = st.session_state.agent.run_test(target, base_url)
             st.success("Teste Concluído")
             st.write(final)
             

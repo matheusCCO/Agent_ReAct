@@ -1,7 +1,6 @@
 import requests
 
 def call_api(method: str, path: str, base_url: str, payload: dict | None = None):
-    # O restante do código permanece igual
     """
     Executa uma chamada HTTP real em uma API.
     Args:
