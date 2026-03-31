@@ -1,5 +1,12 @@
 # Agent_ReAct
 
+#Participantes
+- Agatha França — 229991
+- Arthur Henrique Souza Braga — 229370
+- Cristiane Zabloski de Mattos — 229396
+- Gustavo Soares dos Reis — 22995
+- Matheus Bandeira — 230194
+
 # 🧪 AI QA Agent - Automação de Testes com IA (ReAct)
 
 Este projeto é um **Agente de QA Autônomo** que utiliza Inteligência Artificial (Google Gemini 1.5 Flash) e o padrão de projeto **ReAct** (*Reasoning and Acting*) para realizar testes exploratórios em APIs REST. 
